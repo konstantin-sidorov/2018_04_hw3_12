@@ -1,0 +1,16 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+    <bean id="CacheEngine" class="ru.otus.cache.CacheEngineImpl">
+        <constructor-arg name="maxElements" value="3" />
+        <constructor-arg name="lifeTimeMs" value="0" />
+        <constructor-arg name="idleTimeMs" value="900" />
+        <constructor-arg name="isEternal" value="false" />
+    </bean>
+    <bean id="DBServiceImpl" class="ru.otus.dbService.DBServiceImpl">
+        <constructor-arg name="cache" ref="CacheEngine" />
+    </bean>
+</beans>

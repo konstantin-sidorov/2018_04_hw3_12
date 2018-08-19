@@ -1,6 +1,9 @@
 package ru.otus.servlet;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.otus.cache.CacheEngine;
+import ru.otus.cache.CacheEngineImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,6 +21,12 @@ public class AdminServlet extends HttpServlet {
 
     private final TemplateProcessor templateProcessor;
     private final CacheEngine cache;
+
+    public AdminServlet() throws IOException {
+        ApplicationContext context = new ClassPathXmlApplicationContext("SpringBeans.xml");
+        this.cache = context.getBean("CacheEngine", CacheEngineImpl.class);
+        this.templateProcessor = new TemplateProcessor();
+    }
 
     @SuppressWarnings("WeakerAccess")
     public AdminServlet(TemplateProcessor templateProcessor, CacheEngine cache) {

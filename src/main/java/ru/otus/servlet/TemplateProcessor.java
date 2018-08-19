@@ -11,7 +11,7 @@ import java.io.Writer;
 import java.util.Map;
 
 public class TemplateProcessor {
-    private static final String HTML_DIR = "tml";
+    private static final String HTML_DIR = "tml\\";//"/tml/";
     private final Configuration configuration;
 
     public TemplateProcessor() throws IOException {

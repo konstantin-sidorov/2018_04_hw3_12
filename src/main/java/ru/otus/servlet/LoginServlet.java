@@ -1,13 +1,19 @@
 package ru.otus.servlet;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.otus.dataSets.AddressDataSet;
+import ru.otus.dataSets.PhoneDataSet;
 import ru.otus.dataSets.UserDataSet;
 import ru.otus.dbService.DBService;
+import ru.otus.dbService.DBServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +28,18 @@ public class LoginServlet extends HttpServlet {
     private final TemplateProcessor templateProcessor;
     private String login;
     private DBService dataBase;
+
+    public LoginServlet() throws IOException {
+        ApplicationContext context = new ClassPathXmlApplicationContext("SpringBeans.xml");
+        this.templateProcessor = new TemplateProcessor();
+        this.dataBase = context.getBean("DBServiceImpl", DBServiceImpl.class);
+        this.login = "anonymous";
+
+        //для теста
+        /*dataBase.save(new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
+                Arrays.asList(new PhoneDataSet("33-33-33"), new PhoneDataSet("yy-yy-yy"))));
+       */
+    }
 
     public LoginServlet(TemplateProcessor templateProcessor, String login, DBService dataBase) {
         this.login = login;
@@ -65,10 +83,6 @@ public class LoginServlet extends HttpServlet {
 
     private void saveToSession(HttpServletRequest request, String requestLogin) {
         request.getSession().setAttribute("login", requestLogin);
-    }
-
-    private void saveToVariable(String requestLogin) {
-        login = requestLogin != null ? requestLogin : login;
     }
 
     private void setOK(HttpServletResponse response) {

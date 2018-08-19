@@ -26,6 +26,10 @@ public class DBServiceImpl implements DBService {
         return this.factory.getFactory();
     }
 
+    public CacheEngine getCache() {
+        return cache;
+    }
+
     @Override
     public String getLocalStatus() {
         return null;
@@ -106,11 +110,11 @@ public class DBServiceImpl implements DBService {
     @Override
     public void shutdown() {
         this.factory.close();
+        cache.dispose();
     }
 
     @Override
     public void close() throws Exception {
         shutdown();
-        cache.dispose();
     }
 }
