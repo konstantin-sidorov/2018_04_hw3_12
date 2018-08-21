@@ -19,14 +19,15 @@ public class AdminServlet extends HttpServlet {
     private static final String DEFAULT_USER_NAME = "UNKNOWN";
     private static final String ADMIN_PAGE_TEMPLATE = "admin.html";
 
-    private final TemplateProcessor templateProcessor;
-    private final CacheEngine cache;
+    private TemplateProcessor templateProcessor;
+    private CacheEngine cache;
 
     public AdminServlet() throws IOException {
+        this.templateProcessor = new TemplateProcessor();
         ApplicationContext context = new ClassPathXmlApplicationContext("SpringBeans.xml");
         this.cache = context.getBean("CacheEngine", CacheEngineImpl.class);
-        this.templateProcessor = new TemplateProcessor();
     }
+
 
     @SuppressWarnings("WeakerAccess")
     public AdminServlet(TemplateProcessor templateProcessor, CacheEngine cache) {
@@ -56,12 +57,24 @@ public class AdminServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
 
+    }
+
+    public void doPost(HttpServletRequest request,
+                       HttpServletResponse response) throws ServletException, IOException {
+
+        setOK(response);
         Map<String, Object> pageVariables = createPageVariablesMap(request);
 
-        response.setContentType("text/html;charset=utf-8");
+        //response.setContentType("text/html;charset=utf-8");
         String page = templateProcessor.getPage(ADMIN_PAGE_TEMPLATE, pageVariables);
         response.getWriter().println(page);
+        //response.setStatus(HttpServletResponse.SC_OK);
+
+    }
+    private void setOK(HttpServletResponse response) {
+        response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }

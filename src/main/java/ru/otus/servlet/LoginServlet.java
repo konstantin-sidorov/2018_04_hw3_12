@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
     private static final String LOGIN_PAGE_TEMPLATE = "login.html";
     private static final String ADMIN_NAME = "admin";
 
-    private final TemplateProcessor templateProcessor;
+    private TemplateProcessor templateProcessor;
     private String login;
     private DBService dataBase;
 
@@ -35,10 +35,9 @@ public class LoginServlet extends HttpServlet {
         this.dataBase = context.getBean("DBServiceImpl", DBServiceImpl.class);
         this.login = "anonymous";
 
-        //для теста
-        /*dataBase.save(new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
+        dataBase.save(new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
                 Arrays.asList(new PhoneDataSet("33-33-33"), new PhoneDataSet("yy-yy-yy"))));
-       */
+
     }
 
     public LoginServlet(TemplateProcessor templateProcessor, String login, DBService dataBase) {
