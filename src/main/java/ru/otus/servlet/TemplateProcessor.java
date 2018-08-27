@@ -3,12 +3,13 @@ package ru.otus.servlet;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Map;
-
+@Component
 public class TemplateProcessor {
     private static final String HTML_DIR = "/tml";//"/tml/";
     private final Configuration configuration;
@@ -16,7 +17,8 @@ public class TemplateProcessor {
     public TemplateProcessor() throws IOException {
         configuration = new Configuration(Configuration.VERSION_2_3_28);
         //configuration.setDirectoryForTemplateLoading(new File(HTML_DIR));
-        configuration.setClassForTemplateLoading(getClass(),HTML_DIR);
+        configuration.setClassForTemplateLoading(getClass(), HTML_DIR);
+        //configuration.setDirectoryForTemplateLoading(new File("/tml"));
         configuration.setDefaultEncoding("UTF-8");
     }
 

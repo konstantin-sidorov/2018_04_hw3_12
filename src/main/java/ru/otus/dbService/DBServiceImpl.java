@@ -4,15 +4,16 @@ package ru.otus.dbService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Component;
 import ru.otus.cache.CacheElement;
 import ru.otus.cache.CacheEngine;
 import ru.otus.dataBase.DBConnection;
 import ru.otus.dataSets.DataSet;
 
-
 import java.util.List;
 import java.util.function.Function;
 
+@Component
 public class DBServiceImpl implements DBService {
     private final DBConnection factory;
     private final CacheEngine cache;

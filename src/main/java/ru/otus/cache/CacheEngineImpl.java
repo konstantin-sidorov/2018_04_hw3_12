@@ -1,6 +1,7 @@
 package ru.otus.cache;
 
 
+import org.springframework.stereotype.Component;
 import ru.otus.dataSets.DataSet;
 
 import java.lang.ref.SoftReference;
@@ -10,6 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.function.Function;
 
+@Component
 public class CacheEngineImpl<T extends DataSet> implements CacheEngine<T> {
     private final Map<Long, SoftReference<CacheElement<T>>> elements = new LinkedHashMap<>();
     private final Timer timer = new Timer();

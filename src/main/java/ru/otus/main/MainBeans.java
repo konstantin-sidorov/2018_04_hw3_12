@@ -5,12 +5,15 @@ import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.otus.cache.CacheEngine;
 import ru.otus.dataSets.AddressDataSet;
 import ru.otus.dataSets.DataSet;
 import ru.otus.dataSets.PhoneDataSet;
 import ru.otus.dataSets.UserDataSet;
+import ru.otus.dbService.DBService;
 import ru.otus.dbService.DBServiceImpl;
 import ru.otus.servlet.*;
 
@@ -22,7 +25,10 @@ import java.util.List;
 public class MainBeans {
     private final static int PORT = 8090;
     private final static String PUBLIC_HTML = "public_html";
-
+    /*@Autowired
+    private DBService db;
+    @Autowired
+    private CacheEngine cache;*/
 
     public static void main(String[] args) throws Exception {
         int size = 3;
@@ -37,7 +43,8 @@ public class MainBeans {
         DataSet u3 = new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
                 Arrays.asList(new PhoneDataSet("33-33-33"), new PhoneDataSet("yy-yy-yy")));
         ApplicationContext appContext = new ClassPathXmlApplicationContext("SpringBeans.xml");
-        try (DBServiceImpl db = appContext.getBean("DBServiceImpl", DBServiceImpl.class)) {
+       /* try (DBServiceImpl db = appContext.getBean("DBServiceImpl", DBServiceImpl.class)) {
+        //try (DBServiceImpl dataBase = appContext.getBean("DBServiceImpl", DBServiceImpl.class)) {
             List<DataSet> users = new ArrayList<>();
             users.add(u1);
             users.add(u2);
@@ -71,6 +78,6 @@ public class MainBeans {
 
 
             db.shutdown();
-        }
+        }*/
     }
 }

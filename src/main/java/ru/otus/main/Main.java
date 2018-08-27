@@ -42,7 +42,7 @@ public class Main {
         DataSet u3 = new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
                 Arrays.asList(new PhoneDataSet("33-33-33"), new PhoneDataSet("yy-yy-yy")));
 
-        try (DBService db = new DBServiceImpl(cache)) {
+        /*try (DBService db = new DBServiceImpl(cache)) {
             List<DataSet> users = new ArrayList<>();
             users.add(u1);
             users.add(u2);
@@ -77,6 +77,6 @@ public class Main {
 
             db.shutdown();
             cache.dispose();
-        }
+        }*/
     }
 }

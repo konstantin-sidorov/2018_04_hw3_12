@@ -1,13 +1,15 @@
 package ru.otus.servlet;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ru.otus.dataSets.AddressDataSet;
 import ru.otus.dataSets.PhoneDataSet;
 import ru.otus.dataSets.UserDataSet;
-import ru.otus.dbService.DBService;
 import ru.otus.dbService.DBServiceImpl;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,35 +19,44 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class LoginServlet extends HttpServlet {
+@Configurable
+public class LoginServlet extends AbstractServlet {
 
     public static final String LOGIN_PARAMETER_NAME = "login";
     private static final String LOGIN_VARIABLE_NAME = "login";
     private static final String LOGIN_PAGE_TEMPLATE = "login.html";
     private static final String ADMIN_NAME = "admin";
-
+    @Autowired
     private TemplateProcessor templateProcessor;
     private String login;
-    private DBService dataBase;
+    @Autowired
+    private DBServiceImpl dataBase;
 
-    public LoginServlet() throws IOException {
-        ApplicationContext context = new ClassPathXmlApplicationContext("SpringBeans.xml");
-        this.templateProcessor = new TemplateProcessor();
-        this.dataBase = context.getBean("DBServiceImpl", DBServiceImpl.class);
-        this.login = "anonymous";
-
-        dataBase.save(new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        this.dataBase.save(new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
                 Arrays.asList(new PhoneDataSet("33-33-33"), new PhoneDataSet("yy-yy-yy"))));
-
     }
 
+    /*public LoginServlet() throws IOException {
+        //ApplicationContext context = new ClassPathXmlApplicationContext("SpringBeans.xml");
+        this.templateProcessor = new TemplateProcessor();
+        //this.dataBase = context.getBean("DBServiceImpl", DBServiceImpl.class);
+        this.login = "anonymous";
+        this.dataBase.save(new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
+                Arrays.asList(new PhoneDataSet("33-33-33"), new PhoneDataSet("yy-yy-yy"))));
+
+
+    }*/
+
+    /*
     public LoginServlet(TemplateProcessor templateProcessor, String login, DBService dataBase) {
         this.login = login;
         this.templateProcessor = templateProcessor;
         this.dataBase = dataBase;
     }
-
+    */
     private String getPage(String login) throws IOException {
         String admin = "";
         if (login != null && !String.valueOf("").equals(login)) {
