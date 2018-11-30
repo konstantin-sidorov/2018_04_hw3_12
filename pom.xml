@@ -17,7 +17,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <jetty.version>9.4.9.v20180320</jetty.version>
+        <jetty.version>9.4.12.v20180830</jetty.version>
         <freemarker.version>2.3.28</freemarker.version>
         <spring.version>5.0.6.RELEASE</spring.version>
         <project.name>hw3_12</project.name>
@@ -97,7 +97,29 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.7.4</version>
         </dependency>
-
+        <!-- Java 6 = JAX-B Version 2.0   -->
+        <!-- Java 7 = JAX-B Version 2.2.3 -->
+        <!-- Java 8 = JAX-B Version 2.2.8 -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -125,7 +147,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ru.ru.otus.Main</mainClass>
+                            <mainClass>ru.otus.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -150,7 +172,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>ru.ru.otus.Main</mainClass>
+                            <mainClass>ru.otus.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

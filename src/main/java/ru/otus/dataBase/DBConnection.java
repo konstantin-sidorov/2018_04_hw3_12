@@ -7,7 +7,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import ru.otus.dataSets.*;
 
-
 public class DBConnection {
     private final SessionFactory sessionFactory;
 

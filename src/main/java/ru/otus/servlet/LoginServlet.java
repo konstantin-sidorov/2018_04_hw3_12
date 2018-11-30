@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import ru.otus.cache.CacheEngineImpl;
 import ru.otus.dataSets.AddressDataSet;
 import ru.otus.dataSets.PhoneDataSet;
 import ru.otus.dataSets.UserDataSet;
@@ -30,11 +31,14 @@ public class LoginServlet extends AbstractServlet {
     private TemplateProcessor templateProcessor;
     private String login;
     @Autowired
+    private CacheEngineImpl cache;
+    @Autowired
     private DBServiceImpl dataBase;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        /*this.dataBase=new DBServiceImpl(cache);*/
         this.dataBase.save(new UserDataSet(3, "Паша", 43, new AddressDataSet("Арбат ул."),
                 Arrays.asList(new PhoneDataSet("33-33-33"), new PhoneDataSet("yy-yy-yy"))));
     }

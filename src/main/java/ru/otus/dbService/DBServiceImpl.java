@@ -22,6 +22,10 @@ public class DBServiceImpl implements DBService {
         this.factory = new DBConnection();
         this.cache = cache;
     }
+    /*public DBServiceImpl(DBConnection connection,CacheEngine cache) {
+        this.factory = connection;
+        this.cache = cache;
+    }*/
 
     public SessionFactory getConnection() {
         return this.factory.getFactory();
